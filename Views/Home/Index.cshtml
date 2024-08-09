@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model List<RVASProject.Models.Car>
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">Rent A Car</h1>
+        <p class="lead">Welcome to Rent A Car, your trusted platform for car rentals. We offer a wide selection of vehicles, easy online booking, and top-notch service. Whether you're traveling for business or pleasure, our cars are at your disposal. Our team is dedicated to making your car rental experience fast, secure, and stress-free. Renting a car has never been easier!</p>
+    </section>
+
+    <div class="container">
+        <h1 class="my-4">Our Cars</h1>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h3>@Html.ActionLink("Add New", "Create", "Cars", null, new { @class = "btn btn-primary" })</h3>
+        }
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Availability</th>
+                    <th>Rent</th>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <th>Delete</th>
+                        <th>Update</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(ModelItem => car.Make)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Model)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Year)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Available)</td>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <td> @Html.ActionLink("Rent", "Index", "Rent", new { carId = car.Id }, new { @class = "btn btn-primary" }) </td>
+                            <td>@Html.ActionLink("Delete", "Delete", "Cars", new { id = car.Id }, new { @class = "btn btn-danger" })</td>
+                            <td>@Html.ActionLink("Update", "Update", "Cars", new { id = car.Id }, new { @class = "btn btn-primary" })</td>
+
+
+                        }
+                        else
+                        {
+                            <td>You have to login first!</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</main>

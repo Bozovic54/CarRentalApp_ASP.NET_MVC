@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model List<RVASProject.Models.Car>
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">Rent A Car</h1
+    </section>
+
+    <div class="container">
+        <h1 class="my-4">Our Cars</h1>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Availability</th>
+                    <th>Rent</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(ModelItem => car.Make)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Model)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Year)</td>
+                        <td>@Html.DisplayFor(ModelItem => car.Available)</td>
+                        <td>@Html.ActionLink("Rent", "Rent", new { id = car.Id }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</main>
